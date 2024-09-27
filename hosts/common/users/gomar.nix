@@ -17,14 +17,22 @@
   };
   
   ##########################################################################
-  # Home Manager Packages
+  # Home Manager Packages and Services
   ##########################################################################
   home.packages = with pkgs; [
     signal-desktop # Signal desktop client
     gimp
   ];
-  services.syncthing = {
+  
+  services.syncthing.enable = true;
+  services.darkman = {
     enable = true;
+    package = pkgs.darkman;
+    settings = {
+      lat = 50.85;
+      lng = 4.35;
+      usegeoclue = false;
+    };
   };
 
   ##########################################################################
