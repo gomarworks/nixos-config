@@ -24,13 +24,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   #######################################################################
-  # Localization & Time Configuration
-  #######################################################################
- 
-  time.timeZone = "Europe/Brussels"; # Set system timezone
-  i18n.defaultLocale = "en_US.UTF-8"; # Set default locale
-
-  #######################################################################
   # User Configuration
   #######################################################################
 

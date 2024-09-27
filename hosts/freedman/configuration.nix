@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../common/commonConfig.nix
       inputs.home-manager.nixosModules.default
     ];
 
@@ -35,24 +36,6 @@
   networking.hostName = "freedman"; # Define your hostname.
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  #######################################################################
-  # Nix Configuration
-  #######################################################################
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-  };
-
-  # Allow installation of unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  #######################################################################
-  # Localization & Time Configuration
-  #######################################################################
- 
-  time.timeZone = "Europe/Brussels"; # Set system timezone
-  i18n.defaultLocale = "en_US.UTF-8"; # Set default locale
 
   #######################################################################
   # User Configuration
@@ -131,15 +114,7 @@
   # System-Wide Installed Packages
   #######################################################################
   environment.systemPackages = with pkgs; [
-    xdg-desktop-portal # Desktop portal for better Wayland support
-    neofetch # System info tool
-    asciiquarium-transparent # Fun terminal aquarium
-    wget # Command line file download
-    git # Version control system
-    htop # Interactive process viewer
-    nmap # Network exploration tool
-    cmus # Command line music player
-    lazygit # Git GUI
+    teams-for-linux
   ];
 
   #######################################################################
@@ -147,7 +122,7 @@
   #######################################################################
  
   stylix.enable = true;
-  stylix.image = ./wallpaper.png;
+  stylix.image = ../common/users/wallpaper.png;
   stylix.opacity = {
     terminal = 0.7;
   };
@@ -166,6 +141,12 @@
       package = pkgs.dejavu_fonts;
       name = "DejaVu Serif";
     };
+  };
+  stylix.fonts.sizes = {
+    desktop = 12;
+    applications = 11;
+    terminal = 14;
+    popups = 11;
   };
 
   # services.openssh.enable = true; # Uncomment to enable OpenSSH
