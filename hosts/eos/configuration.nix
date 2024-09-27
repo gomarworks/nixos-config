@@ -23,17 +23,6 @@
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-#  #######################################################################
-#  # Nix Configuration
-#  #######################################################################
-#
-#  nix.settings = {
-#    experimental-features = [ "nix-command" "flakes" ];
-#  };
-#
-#  # Allow installation of unfree packages
-#  nixpkgs.config.allowUnfree = true;
-
   #######################################################################
   # Localization & Time Configuration
   #######################################################################
