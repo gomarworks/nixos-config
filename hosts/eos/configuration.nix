@@ -129,10 +129,10 @@
     };
   };
   stylix.fonts.sizes = {
-    desktop = 12;
-    applications = 11;
-    terminal = 14;
-    popups = 11;
+    desktop = 13;
+    applications = 10;
+    terminal = 12;
+    popups = 14;
   };
  
 

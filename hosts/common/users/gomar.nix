@@ -25,15 +25,6 @@
   ];
   
   services.syncthing.enable = true;
-  services.darkman = {
-    enable = true;
-    package = pkgs.darkman;
-    settings = {
-      lat = 50.85;
-      lng = 4.35;
-      usegeoclue = false;
-    };
-  };
 
   ##########################################################################
   # Import External Configurations
