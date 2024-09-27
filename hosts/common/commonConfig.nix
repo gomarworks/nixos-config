@@ -7,24 +7,6 @@
     ];
 
   #######################################################################
-  # Nix Configuration
-  #######################################################################
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-  };
-
-  # Allow installation of unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  #######################################################################
-  # Localization & Time Configuration
-  #######################################################################
- 
-  time.timeZone = "Europe/Brussels"; # Set system timezone
-  i18n.defaultLocale = "en_US.UTF-8"; # Set default locale
- 
-  #######################################################################
   # Common System-Wide Installed Packages
   #######################################################################
   environment.systemPackages = with pkgs; [
@@ -39,5 +21,21 @@
     cmus # Command line music player
     vlc # Media player
   ];
+
+  #######################################################################
+  # Nix Configuration
+  #######################################################################
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+  };
+
+  # Allow installation of unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  #######################################################################
+  # Localization & Time Configuration
+  ####################################################################### 
+  time.timeZone = "Europe/Brussels"; # Set system timezone
+  i18n.defaultLocale = "en_US.UTF-8"; # Set default locale 
 
 }

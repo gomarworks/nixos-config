@@ -9,12 +9,50 @@
     ];
 
   #######################################################################
+  # EOS-Specific Installed Packages
+  #######################################################################
+  environment.systemPackages = with pkgs; [
+    orca-slicer
+  ];
+
+  #######################################################################
+  # System wide Stylix incl. bootloader (why it isnt in HM config)
+  #######################################################################
+
+  stylix.enable = true;
+  stylix.image = ../common/users/wallpaper.png;
+  stylix.opacity = {
+    terminal = 0.7;
+  };  
+  stylix.cursor.package = pkgs.apple-cursor;
+  stylix.cursor.name = "macOS";
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+     name = "JetBrainsMono Nerd Font Mono";
+    };
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+  };
+  stylix.fonts.sizes = {
+    desktop = 13;
+    applications = 10;
+    terminal = 12;
+    popups = 14;
+  };
+
+  #######################################################################
   # Bootloader Configuration homeDesktopVM
   #######################################################################
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.configurationLimit = 5;
-
 
   #######################################################################
   # Networking Configuration
@@ -22,6 +60,12 @@
   networking.hostName = "eos"; # Define your hostname.
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # services.openssh.enable = true; # Uncomment to enable OpenSSH
+  # Firewall configuration (uncomment and customize if needed)
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.enable = false; # Disable firewall (if not needed)
 
   #######################################################################
   # User Configuration
@@ -94,53 +138,8 @@
   };
 
   # Enable printing support (cups)
-  services.printing.enable = true;
- 
-  #######################################################################
-  # System-Wide Installed Packages
-  #######################################################################
-  environment.systemPackages = with pkgs; [
-    orca-slicer
-  ];
+  services.printing.enable = true; 
 
-  #######################################################################
-  # System wide Stylix incl. bootloader (why it isnt in HM config)
-  #######################################################################
-
-  stylix.enable = true;
-  stylix.image = ../common/users/wallpaper.png;
-  stylix.opacity = {
-    terminal = 0.7;
-  };  
-  stylix.cursor.package = pkgs.apple-cursor;
-  stylix.cursor.name = "macOS";
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-     name = "JetBrainsMono Nerd Font Mono";
-    };
-    sansSerif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Sans";
-    };
-    serif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Serif";
-    };
-  };
-  stylix.fonts.sizes = {
-    desktop = 13;
-    applications = 10;
-    terminal = 12;
-    popups = 14;
-  };
- 
-
-  # services.openssh.enable = true; # Uncomment to enable OpenSSH
-  # Firewall configuration (uncomment and customize if needed)
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # networking.firewall.enable = false; # Disable firewall (if not needed)
 
   #######################################################################
   # System Version
