@@ -9,14 +9,14 @@
     ];
 
   #######################################################################
-  # EOS-Specific Installed Packages
+  # Eos Specific Installed Packages
   #######################################################################
   environment.systemPackages = with pkgs; [
     orca-slicer
   ];
 
   #######################################################################
-  # System wide Stylix incl. bootloader (why it isnt in HM config)
+  # Stylix settings for eos
   #######################################################################
 
   stylix.enable = true;
@@ -48,7 +48,7 @@
   };
 
   #######################################################################
-  # Bootloader Configuration homeDesktopVM
+  # Bootloader Configuration eos
   #######################################################################
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
@@ -139,7 +139,6 @@
 
   # Enable printing support (cups)
   services.printing.enable = true; 
-
 
   #######################################################################
   # System Version

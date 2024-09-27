@@ -9,7 +9,45 @@
     ];
 
   #######################################################################
-  # Bootloader Configuration
+  # Freedman Specific Installed Packages
+  #######################################################################
+  environment.systemPackages = with pkgs; [
+    teams-for-linux
+  ];
+
+  #######################################################################
+  # Stylix settings for freedman
+  #######################################################################
+ 
+  stylix.enable = true;
+  stylix.image = ../common/users/wallpaper.png;
+  stylix.opacity = {
+    terminal = 0.7;
+  };
+  stylix.cursor.package = pkgs.apple-cursor;
+  stylix.cursor.name = "macOS";
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      name = "JetBrainsMono Nerd Font Mono";
+    };
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+  };
+  stylix.fonts.sizes = {
+    desktop = 12;
+    applications = 11;
+    terminal = 14;
+    popups = 11;
+  };
+  #######################################################################
+  # Bootloader Configuration freedman
   #######################################################################
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
@@ -36,6 +74,12 @@
   networking.hostName = "freedman"; # Define your hostname.
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # services.openssh.enable = true; # Uncomment to enable OpenSSH 
+  # Firewall configuration (uncomment and customize if needed)
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.enable = false; # Disable firewall (if not needed)
 
   #######################################################################
   # User Configuration
@@ -109,52 +153,6 @@
 
   # Enable printing support (cups)
   services.printing.enable = true;
-  
-  #######################################################################
-  # System-Wide Installed Packages
-  #######################################################################
-  environment.systemPackages = with pkgs; [
-    teams-for-linux
-  ];
-
-  #######################################################################
-  # Other Services (Optional)
-  #######################################################################
- 
-  stylix.enable = true;
-  stylix.image = ../common/users/wallpaper.png;
-  stylix.opacity = {
-    terminal = 0.7;
-  };
-  stylix.cursor.package = pkgs.apple-cursor;
-  stylix.cursor.name = "macOS";
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-      name = "JetBrainsMono Nerd Font Mono";
-    };
-    sansSerif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Sans";
-    };
-    serif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Serif";
-    };
-  };
-  stylix.fonts.sizes = {
-    desktop = 12;
-    applications = 11;
-    terminal = 14;
-    popups = 11;
-  };
-
-  # services.openssh.enable = true; # Uncomment to enable OpenSSH
-  
-  # Firewall configuration (uncomment and customize if needed)
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # networking.firewall.enable = false; # Disable firewall (if not needed)
 
   #######################################################################
   # System Version
