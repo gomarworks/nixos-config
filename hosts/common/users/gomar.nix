@@ -8,10 +8,10 @@
   home.username = "gomar";
   home.homeDirectory = "/home/gomar";
   
-  # Allow installation of unfree packages
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+#  # Allow installation of unfree packages
+#  nixpkgs.config = {
+#    allowUnfree = true;
+#  };
   
   ##########################################################################
   # Home Manager Packages and Services
