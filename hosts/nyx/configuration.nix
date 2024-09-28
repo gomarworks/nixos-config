@@ -59,7 +59,7 @@
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # services.openssh.enable = true; # Uncomment to enable OpenSSH 
+  services.openssh.enable = true; # Uncomment to enable OpenSSH 
   # Firewall configuration (uncomment and customize if needed)
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
