@@ -94,7 +94,16 @@
         ];
       };
 
-
+      # NYX - Laptop configuration
+      nyx = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/nyx/configuration.nix # Home desktop VM's configuration
+          inputs.home-manager.nixosModules.default
+          inputs.stylix.nixosModules.stylix
+        ];
+      };
     };
   };
 }
