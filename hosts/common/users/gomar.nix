@@ -7,9 +7,6 @@
   ##########################################################################
   home.username = "gomar";
   home.homeDirectory = "/home/gomar";
-
-  # Define the Home Manager release compatibility
-  home.stateVersion = "24.05"; # Please read the comment before changing. # Do not TOUCH
   
   # Allow installation of unfree packages
   nixpkgs.config = {
@@ -69,4 +66,6 @@
   ##########################################################################
   programs.home-manager.enable = true;
 
+  # Define the Home Manager release compatibility
+  home.stateVersion = "24.05"; # Please read the comment before changing. # Do not TOUCH
 }
