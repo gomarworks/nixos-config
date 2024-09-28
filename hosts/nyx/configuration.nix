@@ -86,6 +86,12 @@
   #######################################################################
   services.xserver.enable = true; # Enable X11 windowing system
 
+  #nvidia
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia.open = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable = true;
+  
   # Enable the GNOME Desktop Environment
   services.xserver.displayManager.gdm.enable = true; # Enable GNOME Display Manager
   services.xserver.desktopManager.gnome.enable = true; # Enable GNOME Desktop Environment
