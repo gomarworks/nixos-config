@@ -9,14 +9,15 @@
     ];
 
   #######################################################################
-  # Nyx Specific Installed Packages
+  # Atlas Specific Installed Packages
   #######################################################################
   environment.systemPackages = with pkgs; [
-    jellyfin
+    teams-for-linux
+    audacity
   ];
 
   #######################################################################
-  # Stylix settings for nyx
+  # Stylix settings for atlas
   ####################################################################### 
   stylix.enable = true;
   stylix.image = ../common/users/wallpaper.png;
@@ -47,7 +48,7 @@
   };
 
   #######################################################################
-  # Bootloader Configuration nyx
+  # Bootloader Configuration atlas
   #######################################################################
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
@@ -69,7 +70,7 @@
   #######################################################################
   # Networking Configuration
   #######################################################################
-  networking.hostName = "nyx"; # Define your hostname.
+  networking.hostName = "atlas"; # Define your hostname.
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
