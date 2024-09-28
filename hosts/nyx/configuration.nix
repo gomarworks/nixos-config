@@ -11,9 +11,13 @@
   #######################################################################
   # Nyx Specific Installed Packages
   #######################################################################
-  environment.systemPackages = with pkgs; [
-    jellyfin
+  environment.systemPackages = with pkgs; [ 
+    pkgs.jellyfin
+    pkgs.jellyfin-web
+    pkgs.jellyfin-ffmpeg
   ];
+  
+  services.jellyfin.enable = true;
 
   #######################################################################
   # Stylix settings for nyx
