@@ -52,8 +52,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
-  boot.kernelParams = [ "module_blacklist=i915" ]; 
-  
   #######################################################################
   # Networking Configuration
   #######################################################################
