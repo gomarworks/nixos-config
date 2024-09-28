@@ -19,6 +19,7 @@
   home.packages = with pkgs; [
     signal-desktop # Signal desktop client
     gimp
+    spotify
   ];
   
   services.syncthing.enable = true;
