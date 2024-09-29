@@ -42,6 +42,24 @@
 
 (evil-mode 1)
 
+(defun my/org-present-start ()
+  ;; Enable Olivetti mode for centering the presentation
+  (olivetti-mode 1)
+  (visual-line-mode 1)
+  ;; Widen the buffer to ensure the entire file is visible
+  (widen))
+
+(defun my/org-present-end ()
+  ;; Disable Olivetti mode (stop centering the document)
+  (olivetti-mode 0)
+  (visual-line-mode 0)
+  ;; Widen the buffer to ensure the entire file is visible again
+  (widen))
+
+;; Register hooks with org-present
+(add-hook 'org-present-mode-hook 'my/org-present-start)
+(add-hook 'org-present-mode-quit-hook 'my/org-present-end)
+
 ;; Open de Org-agenda bij opstarten
 (add-hook 'emacs-startup-hook 'org-agenda-list)
 
