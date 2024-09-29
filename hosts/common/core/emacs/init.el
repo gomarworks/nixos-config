@@ -13,6 +13,9 @@
 
 ;; Verwijder de fringe
 (fringe-mode 0)
+
+;; Verwijder eventuele achtergrondkleur van de fringes (werkt soms beter met transparantie)
+(set-face-attribute 'fringe nil :background nil)
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
