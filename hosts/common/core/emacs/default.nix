@@ -6,6 +6,7 @@
     package = pkgs.emacs;
     extraPackages = epkgs: with epkgs; [
       spacious-padding
+      visual-fill-column
       evil
       org
       org-present
