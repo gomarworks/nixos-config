@@ -4,11 +4,13 @@
   programs.emacs = {
     enable = true;
     package = pkgs.emacs;
-    extraPackages = epkgs: [
-      epkgs.spacious-padding
-      epkgs.evil
-      epkgs.org
-      epkgs.org-present
+    extraPackages = epkgs: with epkgs; [
+      spacious-padding
+      evil
+      org
+      org-present
+      org-bullets
+      org-modern
     ];
   };
 

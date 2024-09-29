@@ -12,43 +12,13 @@
   # Nyx Specific Installed Packages
   #######################################################################
   environment.systemPackages = with pkgs; [ 
-    pkgs.jellyfin
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
+    code-cursor
   ];
   
   services.jellyfin.enable = true;
-
-  #######################################################################
-  # Stylix settings for nyx
-  ####################################################################### 
-  stylix.enable = true;
-  stylix.image = ../common/users/wallpaper.png;
-  stylix.opacity = {
-    terminal = 0.7;
-  };
-  stylix.cursor.package = pkgs.apple-cursor;
-  stylix.cursor.name = "macOS";
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-      name = "JetBrainsMono Nerd Font Mono";
-    };
-    sansSerif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Sans";
-    };
-    serif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Serif";
-    };
-  };
-  stylix.fonts.sizes = {
-    desktop = 12;
-    applications = 11;
-    terminal = 14;
-    popups = 11;
-  };
 
   #######################################################################
   # Bootloader Configuration nyx
@@ -91,8 +61,8 @@
   services.xserver.enable = true; # Enable X11 windowing system
 
   #nvidia
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.open = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  #hardware.nvidia.open = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   
@@ -126,6 +96,38 @@
     variant = ""; # No variant
   };
   
+  #######################################################################
+  # Stylix settings for nyx
+  ####################################################################### 
+  stylix.enable = true;
+  stylix.image = ../common/users/wallpaper.png;
+  stylix.opacity = {
+    terminal = 0.7;
+  };
+  stylix.cursor.package = pkgs.apple-cursor;
+  stylix.cursor.name = "macOS";
+  stylix.cursor.size = 60;
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      name = "JetBrainsMono Nerd Font Mono";
+    };
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+  };
+  stylix.fonts.sizes = {
+    desktop = 14;
+    applications = 16;
+    terminal = 20;
+    popups = 16;
+  };
+
   #######################################################################
   # Hardware Configuration
   #######################################################################
