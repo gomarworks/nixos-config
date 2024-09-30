@@ -1,54 +1,63 @@
-;; Voeg alle .org-bestanden in de "Sync/Org" directory toe aan de Org-agenda
+;;; org-agenda.el --- Org agenda configuration
+
+;;; Commentary:
+;; This file contains settings specific to Org agenda views and functionality,
+;; including custom commands and appearance settings.
+
+;;; Code:
+
+;; Org Agenda Configuration
+
+;; This file contains settings specific to Org agenda views and functionality.
+
+;; Add all .org files in the "Sync/Org" directory to Org-agenda
 (setq org-agenda-files (directory-files-recursively "~/Sync/Org" "\\.org$"))
 
-
-;; Function to be run when org-agenda is opened
+;; Function to enable Olivetti mode when Org-agenda is opened
 (defun org-agenda-open-hook ()
-  "Hook to be run when org-agenda is opened"
+  "Hook to activate Olivetti mode when org-agenda is opened."
   (olivetti-mode))
 
-;; Open de Org-agenda bij opstarten
-(add-hook 'emacs-startup-hook 'org-agenda-list)
-
-
-
-;; Adds hook to org agenda mode, making follow mode active in org agenda
+;; Add the hook to Org-agenda mode
 (add-hook 'org-agenda-mode-hook 'org-agenda-open-hook)
 
-;; Only show one day of the agenda at a time
+;; Set the agenda to show only one day at a time
 (setq org-agenda-span 1
       org-agenda-start-day "+0d")
 
-;; Hide duplicates of the same todo item
-;; If it has more than one of timestamp, scheduled,
-;; or deadline information
+;; Hide duplicates of the same todo items
 (setq org-agenda-skip-timestamp-if-done t
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
       org-agenda-skip-scheduled-if-deadline-is-shown t
       org-agenda-skip-timestamp-if-deadline-is-shown t)
 
-;; Ricing org agenda
+;; Customize Org-agenda appearance
 (setq org-agenda-current-time-string "")
 (setq org-agenda-time-grid '((daily) () "" ""))
 
-;; Add icons!
-(setq org-agenda-category-icon-alist
-      `(("MWLabs.p" ,(list (all-the-icons-faicon "graduation-cap" :height 0.8)) nil nil :ascent center)
-        ("Home.s" ,(list (all-the-icons-faicon "home" :v-adjust 0.005)) nil nil :ascent center)
-        ("GS.p" ,(list (all-the-icons-faicon "youtube-play" :height 0.9)) nil nil :ascent center)
-        ("Bard.p" ,(list (all-the-icons-faicon "music" :height 0.9)) nil nil :ascent center)
-        ("Nixdev.s" ,(list (all-the-icons-faicon "gamepad" :height 0.9)) nil nil :ascent center)
-        ("Knowledge.p" ,(list (all-the-icons-faicon "database" :height 0.8)) nil nil :ascent center)
-        ("Personal.p" ,(list (all-the-icons-material "person" :height 0.9)) nil nil :ascent center)
-))
-
-;; Remove category names and scheduling type from agenda view
+;; Remove category names and scheduling types from the agenda view
 (setq org-agenda-prefix-format '(
-(agenda . "  %?-2i %t ")
- (todo . " %i %-12:c")
- (tags . " %i %-12:c")
- (search . " %i %-12:c")))
+  (agenda . "  %?-2i %t ")
+  (todo . " %i %-12:c")
+  (tags . " %i %-12:c")
+  (search . " %i %-12:c")))
 
-;; Load org-super-agenda
+;; Custom agenda command for a weekly review
+(setq org-agenda-custom-commands
+      '(("W" "Weekly Review"
+         ((agenda "" ((org-agenda-span 7)))
+          (stuck "")
+          (todo "WAITING")
+          (todo "IN-PROGRESS")))))
 
+;; Set up agenda workflow states
+(setq org-agenda-todo-ignore-scheduled 'future
+      org-agenda-todo-ignore-deadlines 'far)
+
+;; Customize the agenda view
+(setq org-agenda-block-separator nil
+      org-agenda-compact-blocks t)
+
+(provide 'org-agenda)
+;;; org-agenda.el ends here

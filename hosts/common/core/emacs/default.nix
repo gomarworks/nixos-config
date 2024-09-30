@@ -6,16 +6,20 @@
     package = pkgs.emacs;
     extraPackages = epkgs: with epkgs; [
       evil
+      doom-modeline
       org
       org-present
       org-modern
-      org-super-agenda
       olivetti
       all-the-icons
     ];
   };
 
-  home.file.".emacs.d/init.el".source = ./init.el;
-  home.file.".emacs.d/org-agenda.el".source = ./org-agenda.el;
-  home.file.".emacs.d/org-present.el".source = ./org-present.el;
+  home.file = {
+    ".emacs.d/init.el".source = ./init.el;
+    ".emacs.d/org-agenda.el".source = ./org-agenda.el;
+    ".emacs.d/org-present.el".source = ./org-present.el;
+    ".emacs.d/org-mode.el".source = ./org-mode.el;
+    ".emacs.d/keybindings.el".source = ./keybindings.el;
+  };
 }
