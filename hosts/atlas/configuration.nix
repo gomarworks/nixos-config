@@ -14,6 +14,9 @@
   environment.systemPackages = with pkgs; [
     teams-for-linux
     audacity
+    code-cursor
+    spotify
+    signal-desktop
   ];
 
   #######################################################################

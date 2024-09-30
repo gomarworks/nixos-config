@@ -104,6 +104,17 @@
           inputs.stylix.nixosModules.stylix
         ];
       };
+
+      # ATLAS - Work desktop configuration
+      atlas = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/atlas/configuration.nix #  desktop VM's configuration
+          inputs.home-manager.nixosModules.default
+          inputs.stylix.nixosModules.stylix
+        ];
+      };
     };
   };
 }
