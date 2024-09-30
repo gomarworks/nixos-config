@@ -7,12 +7,6 @@
 ;;; Code:
 
 ;; Global Evil keybindings
-(evil-define-key '(normal visual) 'global
-  (kbd "C-j") 'evil-next-visual-line
-  (kbd "C-k") 'evil-previous-visual-line
-  (kbd "H") 'evil-first-non-blank
-  (kbd "L") 'evil-end-of-line
-  (kbd "<f5>") 'my/toggle-org-prettify)
 
 ;; Org-mode specific keybindings
 (evil-define-key 'normal org-mode-map
@@ -22,6 +16,10 @@
   "gk" 'org-previous-visible-heading
   "gh" 'org-up-element
   "gl" 'org-down-element)
+
+;; Add the org-modern toggle keybinding
+(evil-define-key '(normal visual) org-mode-map
+  (kbd "C-c m") 'my/toggle-org-modern)
 
 ;; Org-present specific keybindings
 (with-eval-after-load 'org-present

@@ -13,6 +13,10 @@
 (menu-bar-mode -1)                ; Disable the menu bar
 (recentf-mode 1)                  ; Enable recent files mode
 
+;; Lettergrootte-instellingen
+(set-face-attribute 'default nil :height 140)  ; Standaard lettergrootte instellen op 14 punten
+(set-face-attribute 'mode-line nil :height 120)  ; Modeline lettergrootte instellen op 12 punten
+
 ;; Fringe settings (the vertical bars at the side of the window)
 (fringe-mode 0)                   ; Disable the fringe
 (set-face-attribute 'fringe nil :background 'unspecified)
@@ -49,7 +53,7 @@
   (setq doom-modeline-height 15)                  ; Set the height of the modeline
   (setq doom-modeline-icon t)                     ; Display icons
   (setq doom-modeline-major-mode-icon t)          ; Display the major mode icon
-  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project))  ; Truncate file path
+  (setq doom-modeline-buffer-file-name-style 'file-name))  ; Show the full file path
 
 ;; Initialize doom-modeline
 (doom-modeline-mode 1)
@@ -57,9 +61,15 @@
 ;; All The Icons Configuration
 (require 'all-the-icons)
 
-;; Check if fonts are installed, if not, prompt to install them
-(unless (find-font (font-spec :name "all-the-icons"))
-  (message "all-the-icons fonts are not installed. Please run M-x all-the-icons-install-fonts"))
+;; Function to check and install all-the-icons fonts if needed
+(defun ensure-all-the-icons-fonts ()
+  "Check if all-the-icons fonts are installed, and install them if not."
+  (unless (find-font (font-spec :name "all-the-icons"))
+    (all-the-icons-install-fonts t)))
+
+;; Run the function to ensure fonts are installed
+(with-eval-after-load 'all-the-icons
+  (ensure-all-the-icons-fonts))
 
 ;; Function to apply fringe settings after theme load
 (defun my/apply-fringe-settings ()
@@ -86,3 +96,18 @@
 (message "Init.el successfully loaded.")
 (provide 'init)
 ;;; init.el ends here
+
+;; Function to reload all NixOS Emacs configuration files
+(defun reload-nixos-emacs-config ()
+  "Reload all NixOS Emacs configuration files without restarting Emacs."
+  (interactive)
+  (let ((config-dir "~/Nixos-config/hosts/common/core/emacs/")
+        (config-files '("init.el" "org-agenda.el" "org-mode.el" "org-present.el" "keybindings.el")))
+    (dolist (file config-files)
+      (let ((file-path (expand-file-name file config-dir)))
+        (when (file-exists-p file-path)
+          (load-file file-path))))
+    (message "NixOS Emacs configuration reloaded successfully")))
+
+;; Bind the function to F5 key
+(global-set-key (kbd "<f5>") 'reload-nixos-emacs-config)

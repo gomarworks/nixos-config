@@ -13,14 +13,6 @@
 ;; Add all .org files in the "Sync/Org" directory to Org-agenda
 (setq org-agenda-files (directory-files-recursively "~/Sync/Org" "\\.org$"))
 
-;; Function to enable Olivetti mode when Org-agenda is opened
-(defun org-agenda-open-hook ()
-  "Hook to activate Olivetti mode when org-agenda is opened."
-  (olivetti-mode))
-
-;; Add the hook to Org-agenda mode
-(add-hook 'org-agenda-mode-hook 'org-agenda-open-hook)
-
 ;; Set the agenda to show only one day at a time
 (setq org-agenda-span 1
       org-agenda-start-day "+0d")
@@ -36,12 +28,18 @@
 (setq org-agenda-current-time-string "")
 (setq org-agenda-time-grid '((daily) () "" ""))
 
-;; Remove category names and scheduling types from the agenda view
-(setq org-agenda-prefix-format '(
-  (agenda . "  %?-2i %t ")
-  (todo . " %i %-12:c")
-  (tags . " %i %-12:c")
-  (search . " %i %-12:c")))
+;; Add side spacing to the agenda view
+(setq org-agenda-prefix-format
+      '((agenda . "  %-12:c%?-12t% s")
+        (todo . "  %-12:c")
+        (tags . "  %-12:c")
+        (search . "  %-12:c")))
+
+;; Increase left margin for better readability
+(setq org-agenda-indent-level 2)
+
+;; Set a reasonable width for the agenda view
+(setq org-agenda-tags-column -80)
 
 ;; Custom agenda command for a weekly review
 (setq org-agenda-custom-commands
@@ -58,6 +56,17 @@
 ;; Customize the agenda view
 (setq org-agenda-block-separator nil
       org-agenda-compact-blocks t)
+
+;; Function to apply custom agenda styling
+(defun my/org-agenda-style-hook ()
+  "Hook to apply custom styling to org-agenda buffers."
+  (setq-local line-spacing 0.2)  ; Adjust line spacing
+  (setq-local left-margin-width 2)  ; Add left margin
+  (setq-local right-margin-width 2)  ; Add right margin
+  (set-window-buffer nil (current-buffer)))  ; Apply changes
+
+;; Add the hook to Org-agenda mode
+(add-hook 'org-agenda-mode-hook 'my/org-agenda-style-hook)
 
 (provide 'org-agenda)
 ;;; org-agenda.el ends here
