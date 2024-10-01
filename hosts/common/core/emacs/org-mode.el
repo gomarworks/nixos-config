@@ -6,6 +6,10 @@
 
 ;;; Code:
 
+;; Enable org-modern by default
+(with-eval-after-load 'org
+  (global-org-modern-mode))
+
 ;; Basic Org mode settings
 (setq org-default-notes-file "~/Sync/Org/notes.org")
 (setq org-startup-indented t)
@@ -18,45 +22,6 @@
 ;; Visual settings
 (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 (add-hook 'org-mode-hook 'visual-line-mode)
-
-;; Load Org-agenda configuration
-(load-file "~/.emacs.d/org-agenda.el")
-
-;; Function to toggle Org prettify
-(defun my/toggle-org-prettify ()
-  "Toggle between pretty and raw Org mode view."
-  (interactive)
-  (if (bound-and-true-p org-pretty-entities)
-      (org-mode-restart)
-    (org-toggle-pretty-entities)))
-
-;; Set up hooks for prettifying Org mode
-(defun my/org-mode-prettify-hooks ()
-  "Set up hooks for prettifying Org mode."
-  (add-hook 'evil-normal-state-entry-hook 'org-toggle-pretty-entities nil t)
-  (add-hook 'evil-insert-state-entry-hook (lambda () (org-toggle-pretty-entities -1)) nil t))
-
-(add-hook 'org-mode-hook 'my/org-mode-prettify-hooks)
-
-;; Function to toggle org-modern
-(defun my/toggle-org-modern ()
-  "Toggle org-modern on and off."
-  (interactive)
-  (if (bound-and-true-p org-modern-mode)
-      (progn
-        (org-modern-mode -1)
-        (org-indent-mode -1)
-        (olivetti-mode -1)
-        (setq org-hide-leading-stars nil)
-        (message "org-modern disabled"))
-    (progn
-      (org-modern-mode 1)
-      (org-indent-mode 1)
-      (olivetti-mode 1)
-      (olivetti-set-width 0.7)  ; Set width to 70% of the window
-      (setq org-hide-leading-stars t)
-      (message "org-modern enabled")))
-  (font-lock-fontify-buffer))
 
 ;; Set org-modern indicators and sizes
 (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
@@ -80,22 +45,24 @@
  '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
  '(org-level-7 ((t (:inherit outline-7 :height 1.0))))
  '(org-level-8 ((t (:inherit outline-8 :height 1.0))))
+ '(org-document-title ((t (:inherit outline-1 :height 2.0 :weight bold))))
 )
-
-;; Function to adjust org appearance
-(defun my/adjust-org-appearance ()
-  (setq org-hide-leading-stars (bound-and-true-p org-modern-mode))
-  (org-indent-mode (if (bound-and-true-p org-modern-mode) 1 -1))
-  (olivetti-mode (if (bound-and-true-p org-modern-mode) 1 -1))
-  (when (bound-and-true-p org-modern-mode)
-    (olivetti-set-width 0.7))
-  (font-lock-fontify-buffer))
-
-;; Add hook to adjust appearance when org-modern is toggled
-(add-hook 'org-modern-mode-hook 'my/adjust-org-appearance)
 
 ;; Enable org-modern by default
 (add-hook 'org-mode-hook 'org-modern-mode)
 
+;; Function to set global Olivetti width
+(defun my/set-global-olivetti-width ()
+  "Set Olivetti width globally for all Org modes."
+  (olivetti-mode 1)
+  (olivetti-set-width 0.7))
+
+(add-hook 'org-mode-hook 'my/set-global-olivetti-width)
+(add-hook 'org-agenda-mode-hook 'my/set-global-olivetti-width)
+
+;; Enable pretty entities by default
+(setq org-pretty-entities t)
+
 (provide 'org-mode)
 ;;; org-mode.el ends here
+

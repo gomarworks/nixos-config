@@ -7,10 +7,12 @@
     extraPackages = epkgs: with epkgs; [
       evil
       doom-modeline
+      hide-mode-line
       org
       org-present
       org-modern
       olivetti
+      visual-fill-column
       all-the-icons
     ];
   };

@@ -17,16 +17,21 @@
   "gh" 'org-up-element
   "gl" 'org-down-element)
 
-;; Add the org-modern toggle keybinding
+;; Add the org-toggle-pretty-entities keybinding
 (evil-define-key '(normal visual) org-mode-map
-  (kbd "C-c m") 'my/toggle-org-modern)
+  (kbd "C-c m") 'org-toggle-pretty-entities)
 
-;; Org-present specific keybindings
-(with-eval-after-load 'org-present
-  (evil-define-key '(normal visual) org-present-mode-map
-    (kbd "C-<right>") 'org-present-next
-    (kbd "C-<left>") 'org-present-prev
-    "q" 'my/org-present-quit-and-show-all))
+;; Function to toggle org-present
+(defun my/toggle-org-present ()
+  "Toggle org-present mode."
+  (interactive)
+  (if (bound-and-true-p org-present-mode)
+      (org-present-quit)
+    (org-present)))
+
+;; Add the org-present toggle keybinding
+(evil-define-key '(normal visual insert) org-mode-map
+  (kbd "C-c p") 'my/toggle-org-present)
 
 (provide 'my-keybindings)
 ;;; my-keybindings.el ends here

@@ -40,11 +40,11 @@
 ;; Load Org-mode configuration
 (load-file "~/.emacs.d/org-mode.el")
 
+;; Load Org-agenda configuration
+(load-file "~/.emacs.d/org-agenda.el")
+
 ;; Load Org-present configuration for presentations
 (load-file "~/.emacs.d/org-present.el")
-
-;; Load Org-modern for enhanced Org-mode visuals
-(with-eval-after-load 'org (global-org-modern-mode))
 
 ;; Doom Modeline Configuration
 (with-eval-after-load 'doom-modeline
@@ -111,3 +111,7 @@
 
 ;; Bind the function to F5 key
 (global-set-key (kbd "<f5>") 'reload-nixos-emacs-config)
+
+;; Disable auto-save
+(setq auto-save-default nil)
+(setq make-backup-files nil)
