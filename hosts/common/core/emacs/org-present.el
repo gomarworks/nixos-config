@@ -34,7 +34,10 @@
                       :height 6.9
                       :underline nil)
   ;; Switch to variable pitch font
-  (variable-pitch-mode 1))                      
+  (variable-pitch-mode 1)
+  (set-face-attribute 'variable-pitch nil :font "DejaVu Sans" :height 120)
+  ;; Set fixed-pitch font for tables
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch))
 
 (defun my/org-present-end ()
   "Restore the normal editing environment when org-present ends."
