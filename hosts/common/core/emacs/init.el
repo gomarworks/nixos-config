@@ -80,23 +80,6 @@
 (add-hook 'after-init-hook 'my/apply-fringe-settings)
 (add-hook 'after-load-theme-hook 'my/apply-fringe-settings)
 
-;; Define the startup function to show the agenda
-(defun my/startup-with-agenda ()
-  "Open the agenda view on startup and remove other windows."
-  (org-agenda nil "a")
-  (delete-other-windows)
-  (get-buffer "*Org Agenda*"))
-
-;; Set the initial buffer choice to our custom startup function
-(setq initial-buffer-choice 'my/startup-with-agenda)
-
-;; Keep the *scratch* buffer but don't show it on startup
-(setq initial-scratch-message nil)
-
-(message "Init.el successfully loaded.")
-(provide 'init)
-;;; init.el ends here
-
 ;; Function to reload all NixOS Emacs configuration files
 (defun reload-nixos-emacs-config ()
   "Reload all NixOS Emacs configuration files without restarting Emacs."
@@ -115,3 +98,7 @@
 ;; Disable auto-save
 (setq auto-save-default nil)
 (setq make-backup-files nil)
+
+(message "Init.el successfully loaded.")
+(provide 'init)
+;;; init.el ends here
