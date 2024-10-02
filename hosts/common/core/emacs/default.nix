@@ -11,6 +11,7 @@
       org
       org-present
       org-modern
+      org-roam
       olivetti
       visual-fill-column
       all-the-icons
