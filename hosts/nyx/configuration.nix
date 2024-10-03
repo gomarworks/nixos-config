@@ -16,6 +16,7 @@
     jellyfin-web
     jellyfin-ffmpeg
     code-cursor
+    immich
   ];
   
   services.jellyfin.enable = true;
