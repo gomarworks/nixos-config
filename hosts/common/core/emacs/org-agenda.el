@@ -11,7 +11,8 @@
 ;; This file contains settings specific to Org agenda views and functionality.
 
 ;; Add all .org files in the "Sync/Org" directory to Org-agenda
-(setq org-agenda-files (directory-files-recursively "~/Sync/Org" "\\.org$"))
+(setq org-agenda-files '("~/Sync/Org/Personal.org" "~/Sync/Org/Work.org" "~/Sync/Org/Projects.org"))
+
 
 
 ;; Hide duplicates of the same todo items
