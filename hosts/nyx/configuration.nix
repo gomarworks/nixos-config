@@ -15,8 +15,10 @@
     jellyfin
     jellyfin-web
     jellyfin-ffmpeg
-    code-cursor
     immich
+    btcpayserver
+    monero-cli
+    bitwarden-cli
   ];
   
   services.jellyfin.enable = true;
