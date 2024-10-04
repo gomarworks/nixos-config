@@ -15,7 +15,6 @@
     jellyfin
     jellyfin-web
     jellyfin-ffmpeg
-    immich
     btcpayserver-altcoins
     monero-cli
     bitwarden-cli
