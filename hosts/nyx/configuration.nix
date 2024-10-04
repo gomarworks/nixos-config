@@ -63,14 +63,23 @@
   services.xserver.enable = true; # Enable X11 windowing system
 
   #nvidia
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+#  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
   #hardware.nvidia.open = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.graphics.enable = true;
+ # services.xserver.videoDrivers = [ "nvidia" ];
+ # hardware.graphics.enable = true;
   
   # Enable the GNOME Desktop Environment
   services.xserver.displayManager.gdm.enable = true; # Enable GNOME Display Manager
   services.xserver.desktopManager.gnome.enable = true; # Enable GNOME Desktop Environment
+  
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia.modesetting.enable = true;
 
   # Delete annoying GNOME apps
   environment.gnome.excludePackages = with pkgs; [
