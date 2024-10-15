@@ -17,6 +17,7 @@
     orca-slicer
     audacity
     makemkv
+    davinci-resolve
   ];
 
   programs.steam.enable = true;
