@@ -19,8 +19,12 @@
     signal-desktop
     blender
     davinci-resolve
-    immich
   ];
+  
+  services.immich = {
+    enable = true;
+    environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
+  };
 
   #######################################################################
   # Stylix settings for atlas
