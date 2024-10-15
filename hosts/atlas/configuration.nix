@@ -18,7 +18,6 @@
     spotify
     signal-desktop
     blender
-    davinci-resolve
   ];
   
   services.immich = {
