@@ -18,10 +18,14 @@
     ##########################################################
     # Utilities
     ##########################################################
-
+    
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
     };
 
     nixvim = {
@@ -69,7 +73,7 @@
 
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, nixos-hardware, ... }@inputs: {
     nixosConfigurations = {
 
       # EOS - Home Desktop configuration
@@ -114,6 +118,15 @@
           inputs.home-manager.nixosModules.default
           inputs.stylix.nixosModules.stylix
         ];
+      };
+
+      # MINIMISES - RPI4
+      miniMises = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+	modules = [
+          ./hosts/miniMises/configuration.nix # rpi's config
+	  nixos-hardware.nixosModules.raspberry-pi-4
+	];
       };
     };
   };

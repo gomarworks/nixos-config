@@ -18,6 +18,8 @@
     spotify
     signal-desktop
     blender
+    davinci-resolve
+    immich
   ];
 
   #######################################################################
