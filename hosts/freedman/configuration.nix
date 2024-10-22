@@ -129,6 +129,12 @@
     gnome-system-monitor gnome-weather gnome-disk-utility pkgs.gnome-connections
   ];
 
+  # Keyboard configuration for X11
+  services.xserver.xkb = {
+    layout = "us"; # Set US layout
+    variant = ""; # No variant
+  };
+  
   hardware.graphics.enable = true;
 
   services.xserver.videoDrivers = ["nvidia"];
@@ -166,12 +172,6 @@
   };
   
 
-  # Keyboard configuration for X11
-  services.xserver.xkb = {
-    layout = "us"; # Set US layout
-    variant = ""; # No variant
-  };
-  
   #######################################################################
   # Hardware Configuration
   #######################################################################
