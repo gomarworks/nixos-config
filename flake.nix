@@ -120,13 +120,15 @@
         ];
       };
 
-      # MINIMISES - RPI4
-      miniMises = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-	modules = [
-          ./hosts/miniMises/configuration.nix # rpi's config
-	  nixos-hardware.nixosModules.raspberry-pi-4
-	];
+      # MiniMises - mini pc
+      minimises = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/minimises/configuration.nix #  desktop VM's configuration
+          inputs.home-manager.nixosModules.default
+          inputs.stylix.nixosModules.stylix
+        ];
       };
     };
   };
