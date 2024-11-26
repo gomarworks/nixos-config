@@ -38,39 +38,6 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    ##########################################################
-    # Secrets Management
-    ##########################################################
-   
-    sops-nix = {
-      url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ##########################################################
-    # Hyprland when needed
-    ##########################################################
-       
-    hyprland = {
-      url = "github:hyprwm/hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-#    hyprland-plugins = {
-#      url = "github:hyprwm/hyprland-plugins";
-#      inputs.hyprland.follows = "hyprland";
-#    };
-
-    ##########################################################
-    # Personal Secrets Repo
-    ##########################################################
- 
-    # nix-secrets = {
-    #   url = "git+ssh://git@gitlab.com/emergentmind/nix-secrets.git?ref=main&shallow=1";
-    #   inputs = { };
-    # };
-
   };
 
   outputs = { self, nixpkgs, nixos-hardware, ... }@inputs: {
@@ -98,7 +65,7 @@
         ];
       };
 
-      # NYX - Laptop configuration
+      # NYX - Home Server configuration
       nyx = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
