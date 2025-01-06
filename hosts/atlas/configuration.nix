@@ -23,7 +23,7 @@
   # Stylix settings for atlas
   ####################################################################### 
   stylix.enable = true;
-  stylix.image = ../common/users/wallpaper.png;
+  stylix.image = ../common/users/wallpaper.jpg;
   stylix.opacity = {
     terminal = 0.7;
   };
