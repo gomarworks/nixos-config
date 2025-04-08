@@ -22,7 +22,7 @@
     texliveFull
     gnuplot
     kicad
-    sublime4
+    sublime
   ];
 
   #######################################################################
@@ -90,8 +90,6 @@
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # networking.firewall.enable = false; # Disable firewall (if not needed)
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
   #######################################################################
   # User Configuration
   #######################################################################
