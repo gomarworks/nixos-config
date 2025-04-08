@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   programs.nixvim = {
     enable = true;
@@ -16,12 +15,26 @@
         enable = true;
         keymaps."<C-p>" = "git_files";  # Ctrl-P for git files search
       };
-      harpoon = {                   # Bookmarking plugin
+      harpoon = {
         enable = true;
-        keymaps.addFile = "<C-a>";         # Add file shortcut
-        keymaps.toggleQuickMenu = "<C-;>"; # Toggle quick menu shortcut
+        # IMPORTANT:
+        # Remove the now-invalid `keymaps.addFile` / `keymaps.toggleQuickMenu` definitions.
       };
     };
+
+    # Move your Harpoon keymaps to the top-level keymaps array
+    keymaps = [
+      {
+        mode = "n";
+        key = "<C-a>";
+        action.__raw = "function() require'harpoon':list():add() end";
+      }
+      {
+        mode = "n";
+        key = "<C-;>";
+        action.__raw = "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end";
+      }
+    ];
 
     # Clipboard and other options
     clipboard = {
@@ -35,4 +48,3 @@
     };
   };
 }
-

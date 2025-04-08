@@ -22,8 +22,7 @@
     texliveFull
     gnuplot
     kicad
-    avahi
-    nssmdns
+    sublime4
   ];
 
   #######################################################################
