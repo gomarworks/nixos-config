@@ -17,8 +17,15 @@
     code-cursor
     spotify
     signal-desktop
+    parsec-bin
+    orca-slicer
+    texliveFull
+    gnuplot
+    kicad
+    avahi
+    nssmdns
   ];
-  
+
   #######################################################################
   # Stylix settings for atlas
   ####################################################################### 
@@ -75,14 +82,17 @@
   #######################################################################
   networking.hostName = "atlas"; # Define your hostname.
   networking.networkmanager.enable = true; # Enable network management
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # services.openssh.enable = true; # Uncomment to enable OpenSSH 
   # Firewall configuration (uncomment and customize if needed)
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 
+    8888
+    5173
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # networking.firewall.enable = false; # Disable firewall (if not needed)
-
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
   #######################################################################
   # User Configuration
   #######################################################################
