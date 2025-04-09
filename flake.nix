@@ -38,6 +38,13 @@
       url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    # Hyprland input for better plugin support
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland"; # Prevents version mismatch.
+    };
   };
 
   outputs = { self, nixpkgs, nixos-hardware, ... }@inputs: {
@@ -48,7 +55,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/eos/configuration.nix # Home desktop VM's configuration
+          ./hosts/eos/configuration.nix 
           inputs.home-manager.nixosModules.default
           inputs.stylix.nixosModules.stylix
         ];
@@ -59,7 +66,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/freedman/configuration.nix # Home desktop VM's configuration
+          ./hosts/freedman/configuration.nix 
           inputs.home-manager.nixosModules.default
           inputs.stylix.nixosModules.stylix
         ];
@@ -70,7 +77,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/nyx/configuration.nix # Home desktop VM's configuration
+          ./hosts/nyx/configuration.nix 
           inputs.home-manager.nixosModules.default
           inputs.stylix.nixosModules.stylix
         ];
@@ -81,7 +88,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/atlas/configuration.nix #  desktop VM's configuration
+          ./hosts/atlas/configuration.nix 
           inputs.home-manager.nixosModules.default
           inputs.stylix.nixosModules.stylix
         ];
@@ -92,7 +99,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/minimises/configuration.nix #  desktop VM's configuration
+          ./hosts/minimises/configuration.nix 
           inputs.home-manager.nixosModules.default
           inputs.stylix.nixosModules.stylix
         ];
