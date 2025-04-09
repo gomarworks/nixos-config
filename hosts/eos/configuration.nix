@@ -102,6 +102,12 @@
   services.xserver.displayManager.gdm.enable = true; # Enable GNOME Display Manager
   services.xserver.desktopManager.gnome.enable = true; # Enable GNOME Desktop Environment
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    wlr.enable = true;
+  };
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
