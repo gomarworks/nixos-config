@@ -2,8 +2,6 @@
 
 {
   wayland.windowManager.hyprland = {
-    enable = true;
-
     settings = {
       "$mod" = "TAB";
 
@@ -53,7 +51,6 @@
 
   programs.rofi = {
     enable = true;
-    theme = "gruvbox-dark"; # Or pick another from `rofi-theme-selector`
   };
 
   xdg.enable = true;
