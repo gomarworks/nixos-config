@@ -30,7 +30,6 @@
     ../core/nixvim.nix # Nixvim configuration
     ../core/kitty.nix # Kitty configuration
     ../core/emacs # Emacs configuration
-    ../core/hyprland.nix
     inputs.nixvim.homeManagerModules.default # Nixvim module import
   ]; 
 
