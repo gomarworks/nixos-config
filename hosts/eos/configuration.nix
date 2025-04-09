@@ -97,6 +97,7 @@
     users.gomar = import ../common/users/gomar.nix {
       inherit inputs pkgs config;
     };
+    backupFileExtension = "backup";
   };
 
   #######################################################################
