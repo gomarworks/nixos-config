@@ -14,6 +14,12 @@
   environment.systemPackages = with pkgs; [
     orca-slicer
     code-cursor
+    #hyprland specific packages
+    waybar
+    dunst
+    wl-clipboard
+    hyprpaper
+    rofi-wayland
   ];
   programs.steam.enable = true;
   programs.hyprland = {
@@ -21,6 +27,20 @@
     withUWSM = true;
     xwayland.enable = true;
   };
+
+  #hyprland specific configuration
+  # Add this to your configuration.nix file
+
+  system.activationScripts.hyprlandConfig = ''
+  # Create directory if it doesn't exist
+  mkdir -p /home/gomar/.config/hypr
+  
+  # Copy the config file
+  cp ${../common/dotfiles/hyprland/hyprland.conf} /home/gomar/.config/hypr/hyprland.conf
+  
+  # Fix permissions
+  chown -R gomar:users /home/gomar/.config/hypr
+  '';
 
   #######################################################################
   # Stylix settings for eos
