@@ -3,4 +3,7 @@
 {
   # Simply copy the hyprland configuration file to the expected location
   home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
+
+  # Copy the hyprpaper configuration file to the expected location
+  home.file.".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
 }
