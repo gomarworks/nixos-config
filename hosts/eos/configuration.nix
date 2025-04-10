@@ -20,6 +20,8 @@
     wl-clipboard
     hyprpaper
     rofi-wayland
+    libnotify
+    networkmanagerapplet
   ];
   programs.steam.enable = true;
   programs.hyprland = {
