@@ -14,21 +14,8 @@
   environment.systemPackages = with pkgs; [
     orca-slicer
     code-cursor
-    #hyprland specific packages
-    waybar
-    dunst
-    wl-clipboard
-    hyprpaper
-    rofi-wayland
-    libnotify
-    networkmanagerapplet
   ];
   programs.steam.enable = true;
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
 
   #######################################################################
   # Stylix settings for eos
@@ -36,6 +23,7 @@
 
   stylix.enable = true;
   stylix.image = ../common/users/wallpaper.jpg;
+  stylix.homeManagerIntegration.autoImport = true;
   stylix.opacity = {
     terminal = 0.7;
   };  

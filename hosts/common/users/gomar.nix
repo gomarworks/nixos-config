@@ -30,10 +30,8 @@
     ../core/nixvim.nix # Nixvim configuration
     ../core/kitty.nix # Kitty configuration
     ../core/emacs # Emacs configuration
-    ../core/hyprland # Hyprland configuration
     inputs.nixvim.homeManagerModules.default # Nixvim module import
   ]; 
-
   ##########################################################################
   # Chromium (Brave) Configuration
   ##########################################################################
