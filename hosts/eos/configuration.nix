@@ -14,6 +14,7 @@
   environment.systemPackages = with pkgs; [
     orca-slicer
     code-cursor
+    texliveFull
   ];
   programs.steam.enable = true;
 
