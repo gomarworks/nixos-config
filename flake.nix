@@ -72,17 +72,6 @@
         ];
       };
 
-      # NYX - Home Server configuration
-      nyx = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/nyx/configuration.nix 
-          inputs.home-manager.nixosModules.default
-          inputs.stylix.nixosModules.stylix
-        ];
-      };
-
       # ATLAS - Work desktop configuration
       atlas = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
