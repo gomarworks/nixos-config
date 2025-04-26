@@ -14,7 +14,8 @@
   environment.systemPackages = with pkgs; [
     orca-slicer
     code-cursor
-    texliveFull
+    multiviewer-for-f1
+    freecad-wayland
   ];
   programs.steam.enable = true;
 
