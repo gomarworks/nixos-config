@@ -19,8 +19,20 @@
     signal-desktop # Signal desktop client
     gimp
     spotify
+    gnomeExtensions.paperwm
   ];
   
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        enabled-extensions = [
+	  "paperwm@paperwm.github.com"
+	];
+      };
+    };
+  };
+
   services.syncthing.enable = true;
 
   ##########################################################################

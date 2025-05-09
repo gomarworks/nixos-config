@@ -1,5 +1,12 @@
 { config, pkgs, inputs, ... }:
 
+let
+  # Create a reference to unstable packages
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config = config.nixpkgs.config;
+  };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,7 +20,7 @@
   #######################################################################
   environment.systemPackages = with pkgs; [
     orca-slicer
-    code-cursor
+    pkgs-unstable.code-cursor  # Using code-cursor from unstable
     multiviewer-for-f1
     freecad-wayland
   ];
@@ -67,6 +74,8 @@
   networking.hostName = "eos"; # Define your hostname.
   networking.networkmanager.enable = true; # Enable network management
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  
+  services.avahi.enable = true;
 
   # services.openssh.enable = true; # Uncomment to enable OpenSSH
   # Firewall configuration (uncomment and customize if needed)

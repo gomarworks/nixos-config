@@ -7,8 +7,8 @@
     # NixOS and HomeManager package sources
     ##########################################################
 
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -47,7 +47,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, ... }@inputs: {
     nixosConfigurations = {
 
       # EOS - Home Desktop configuration
