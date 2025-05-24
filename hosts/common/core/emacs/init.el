@@ -46,6 +46,9 @@
 ;; Load Org-present configuration for presentations
 (load-file "~/.emacs.d/org-present.el")
 
+;; Load Org-capture-template configuration for quick note taking
+(load-file "~/.emacs.d/org-capture-templates.el")
+
 ;; Doom Modeline Configuration
 (with-eval-after-load 'doom-modeline
   (doom-modeline-mode 1)

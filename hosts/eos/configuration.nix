@@ -21,10 +21,18 @@ in
   environment.systemPackages = with pkgs; [
     orca-slicer
     pkgs-unstable.code-cursor  # Using code-cursor from unstable
-    multiviewer-for-f1
+    pkgs-unstable.multiviewer-for-f1
     freecad-wayland
+    space-cadet-pinball
+    openrgb-with-all-plugins
+    qgroundcontrol
   ];
   programs.steam.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
+  services.hardware.openrgb.enable = true;
+
 
   #######################################################################
   # Stylix settings for eos
@@ -90,7 +98,7 @@ in
   users.users.gomar = {
     isNormalUser = true;
     description = "gomar";
-    extraGroups = [ "networkmanager" "wheel"]; # Add user to network and admin groups
+    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" ]; # Add user to network and admin groups
   };
 
   home-manager = {
