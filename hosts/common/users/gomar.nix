@@ -57,7 +57,7 @@
       { id = "fjcldmjmjhkklehbacihaiopjklihlgg"; } #News Feed Eradicator
       { id = "bhghoamapcdpbohphigoooaddinpkbai"; } #Authenticator
       { id = "laookkfknpbbblfpciffpaejjkokdgca"; } #Momentum
-      { id = "lpomjgbicdemjkgmbnkjncgdebogkhlb"; } #Momentum
+      { id = "lpomjgbicdemjkgmbnkjncgdebogkhlb"; } #Multiviewer
     ];
 
    commandLineArgs = [

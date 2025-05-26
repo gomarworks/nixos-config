@@ -24,5 +24,7 @@
     ".emacs.d/org-present.el".source = ./org-present.el;
     ".emacs.d/org-mode.el".source = ./org-mode.el;
     ".emacs.d/keybindings.el".source = ./keybindings.el;
+    ".emacs.d/org-capture-templates.el".source = ./org-capture-templates.el;
+    ".emacs.d/invoice.css".source = ./invoice.css;
   };
 }

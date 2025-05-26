@@ -19,7 +19,7 @@ in
   # Eos Specific Installed Packages
   #######################################################################
   environment.systemPackages = with pkgs; [
-    orca-slicer
+    pkgs-unstable.orca-slicer
     pkgs-unstable.code-cursor  # Using code-cursor from unstable
     pkgs-unstable.multiviewer-for-f1
     freecad-wayland
