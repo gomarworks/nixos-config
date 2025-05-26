@@ -58,6 +58,7 @@
       { id = "bhghoamapcdpbohphigoooaddinpkbai"; } #Authenticator
       { id = "laookkfknpbbblfpciffpaejjkokdgca"; } #Momentum
       { id = "lpomjgbicdemjkgmbnkjncgdebogkhlb"; } #Multiviewer
+      { id = "jinjaccalgkegednnccohejagnlnfdag"; } #ViolentMonkey
     ];
 
    commandLineArgs = [
