@@ -21,7 +21,6 @@
     orca-slicer
     texliveFull
     gnuplot
-    kicad
     sublime
   ];
 
