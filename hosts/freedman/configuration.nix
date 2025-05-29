@@ -16,6 +16,8 @@
     code-cursor
     audacity
     makemkv
+    blender
+    freecad
   ];
 
   programs.steam.enable = true;

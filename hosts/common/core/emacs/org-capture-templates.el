@@ -97,7 +97,7 @@
   :END:
   - Thibault Van den Bossche
   - Nieuwstraat 22, 3018 Wijgmaal, Belgium
-  - info@mwlabs.nl – [[http://mwlabs.nl][mwlabs.nl]]
+  - info@mwlabs.be – [[http://mwlabs.be][mwlabs.be]]
   - BE0722784513 – +32 492 42 65 35
 
 * Client Information:
@@ -115,7 +115,7 @@
   - **Project Reference**: %^{Project Reference|}
   - **Offer Number**: %(mwlabs/generate-number 'offer)
   - **Date**: %(mwlabs/format-date-readable (current-time))
-  - **Validity**: until %^{Valid Until|%(mwlabs/get-default-validity-date)}
+  - **Validity**: until %(mwlabs/get-default-validity-date)
 
 * Project Summary
 %^{Project Description}
@@ -169,7 +169,7 @@ Please confirm acceptance by returning this signed offer by email.
   :END:
   - Thibault Van den Bossche
   - Nieuwstraat 22, 3018 Wijgmaal, Belgium
-  - info@mwlabs.nl – [[http://mwlabs.nl][mwlabs.nl]]
+  - info@mwlabs.be – [[http://mwlabs.be][mwlabs.be]]
   - BE0722784513 – +32 492 42 65 35
 
 * Bill to:
@@ -208,6 +208,117 @@ Please confirm acceptance by returning this signed offer by email.
 * Payment Information
   - **Account holder**: Thibault Van den Bossche
   - **IBAN**: BE09 7340 3298 4857")
+
+        ("n" "Quick Note"
+         entry
+         (file+headline "~/sync/notes/inbox.org" "Quick Notes")
+         "* %^{Title}\n%U\n\n%?"
+         :empty-lines 1)
+
+        ("p" "3D Print Estimate"
+         plain
+         (file (lambda () (format "~/sync/work/mwlabs/admin/proposals/%s-3dprint-%s.org"
+                                 (read-string "Title (e.g., Model X): ")
+                                 (mwlabs/format-date-iso (current-time)))))
+         "#+TITLE: %1
+#+AUTHOR: MWLabs
+#+OPTIONS: toc:nil num:nil timestamp:nil author:nil date:nil
+#+EXPORT_FILE_NAME: %(mwlabs/get-export-filename 'offer)
+#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"file:///home/gomar/.emacs.d/invoice.css\" />
+
+* MWLabs
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: grid-item-left
+  :END:
+  - Thibault Van den Bossche
+  - Nieuwstraat 22, 3018 Wijgmaal, Belgium
+  - info@mwlabs.be – [[http://mwlabs.be][mwlabs.be]]
+  - BE0722784513 – +32 492 42 65 35
+
+* Client Information:
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: grid-item-right
+  :END:
+  - %^{Company Name}
+  - %^{Company Address}
+  - VAT: %^{Company VAT}
+
+* Document Details:
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: grid-item-right
+  :END:
+  - **Project Reference**: %^{Project Reference|}
+  - **Offer Number**: %(mwlabs/generate-number 'offer)
+  - **Date**: %(mwlabs/format-date-readable (current-time))
+  - **Validity**: until %^{Valid Until|%(mwlabs/get-default-validity-date)}
+
+* 3D Printing Details
+|----------+----------------------------+---------+-------|
+| Quantity | Description                | Rate    | Total |
+|----------+----------------------------+---------+-------|
+| %^{Print time (hours)}h | Machine time (RatRig) | €5.00/h | %(let ((h (string-to-number \"%^{Print time (hours)}\"))) (format \"€%.2f\" (* h 5.0))) |
+| %^{Filament (grams)}g | Filament (PLA/PETG)        | €0.05/g | %(let ((f (string-to-number \"%^{Filament (grams)}\"))) (format \"€%.2f\" (* f 0.05))) |
+|----------+----------------------------+---------+-------|
+|          | **Subtotal**               |         | %(let* ((h (string-to-number \"%^{Print time (hours)}\"))
+               (f (string-to-number \"%^{Filament (grams)}\"))
+               (cost (+ (* h 5.0) (* f 0.05))))
+          (format \"€%.2f\" cost)) |
+|          | **Failure Buffer (10%)**   |         | %(let* ((h (string-to-number \"%^{Print time (hours)}\"))
+               (f (string-to-number \"%^{Filament (grams)}\"))
+               (cost (+ (* h 5.0) (* f 0.05)))
+               (buffer (* cost 0.1)))
+          (format \"€%.2f\" buffer)) |
+|----------+----------------------------+---------+-------|
+|          | **Total excl. VAT**        |         | %(let* ((h (string-to-number \"%^{Print time (hours)}\"))
+               (f (string-to-number \"%^{Filament (grams)}\"))
+               (cost (+ (* h 5.0) (* f 0.05)))
+               (total (* cost 1.1)))
+          (format \"€%.2f\" total)) |
+|          | **21% VAT**                |         | %(let* ((h (string-to-number \"%^{Print time (hours)}\"))
+               (f (string-to-number \"%^{Filament (grams)}\"))
+               (cost (+ (* h 5.0) (* f 0.05)))
+               (total (* cost 1.1))
+               (vat (* total 0.21)))
+          (format \"€%.2f\" vat)) |
+|----------+----------------------------+---------+-------|
+|          | **Total incl. VAT**        |         | %(let* ((h (string-to-number \"%^{Print time (hours)}\"))
+               (f (string-to-number \"%^{Filament (grams)}\"))
+               (cost (+ (* h 5.0) (* f 0.05)))
+               (total (* cost 1.1))
+               (vat (* total 0.21)))
+          (format \"€%.2f\" (+ total vat))) |
+|----------+----------------------------+---------+-------|
+
+* Print Specifications
+- **Model Name**: %^{Model Name}
+- **Material**: %^{Material|PLA|PETG|ABS|TPU}
+- **Color**: %^{Color}
+- **Estimated Print Time**: %^{Print time (hours)} hours
+- **Estimated Material Usage**: %^{Filament (grams)} grams
+
+* Terms & Conditions
+- MWLabs acts as technical consultant only (not project lead)
+- All prices are exclusive of VAT
+- Travel and accommodation abroad are invoiced separately
+- This proposal can be included in R&D budgets or subsidy applications
+- Print quality is guaranteed to meet standard 3D printing tolerances
+- Delivery time depends on current queue and print complexity
+- Files must be provided in STL or G-code format
+- Support structures may be required and will be added at our discretion
+
+* Payment Information
+  - **Account holder**: Thibault Van den Bossche
+  - **IBAN**: BE09 7340 3298 4857
+
+* Signature
+
+Please confirm acceptance by returning this signed offer by email.
+
+|                    | For Client              |
+|--------------------+-------------------------|
+| Name:              |                         |
+| Signature:         |                         |
+| Date:              |                         |")
 
         ("n" "Quick Note"
          entry
