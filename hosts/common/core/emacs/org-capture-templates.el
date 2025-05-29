@@ -7,63 +7,98 @@
 (require 'org)
 (require 'org-capture)
 
-;; Set CSS file for HTML export
-(setq org-html-head-include-default-style nil)
-(setq org-html-head-extra
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; HTML Export Settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Configure HTML export settings
+(setq org-html-head-include-default-style nil)  ; Don't include default CSS
+(setq org-html-htmlize-output-type 'css)        ; Use CSS for syntax highlighting
+(setq org-html-validation-link nil)             ; Don't include validation link
+(setq org-html-head
       (concat "<link rel=\"stylesheet\" type=\"text/css\" href=\"~/.emacs.d/invoice.css\" />"))
 
-;; Get the last invoice number from the invoices directory
-(defun mwlabs/get-last-invoice-number ()
-  "Get the last invoice number from the invoices directory."
-  (let ((invoices-dir "~/sync/work/mwlabs/admin/invoices/")
-        (last-number 0))
-    (when (file-directory-p invoices-dir)
-      (dolist (file (directory-files invoices-dir nil "\\.org$"))
-        (when (string-match "-invoice-\\([0-9]+\\)" file)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper Functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun mwlabs/format-currency (amount)
+  "Format AMOUNT as currency with Euro symbol."
+  (format "€%.2f" amount))
+
+(defun mwlabs/calculate-vat (amount &optional rate)
+  "Calculate VAT for AMOUNT with optional RATE (defaults to 21%)."
+  (let ((rate (or rate 21)))
+    (* amount (/ rate 100.0))))
+
+(defun mwlabs/format-date-readable (date)
+  "Format DATE as DD/MM/YYYY for document content."
+  (format-time-string "%d/%m/%Y" date))
+
+(defun mwlabs/format-date-iso (date)
+  "Format DATE as YYYY-MM-DD for filenames."
+  (format-time-string "%Y-%m-%d" date))
+
+(defun mwlabs/get-default-validity-date ()
+  "Get default validity date (30 days from now)."
+  (let ((date (current-time)))
+    (setf (nth 0 date) (+ (nth 0 date) (* 30 24 60 60)))
+    (mwlabs/format-date-readable date)))
+
+(defun mwlabs/get-export-filename (type)
+  "Get export filename based on document title and TYPE."
+  (let ((title (org-entry-get (point-min) "TITLE")))
+    (format "%s-%s-%s" title type (mwlabs/format-date-iso (current-time)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Number Generation Functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun mwlabs/get-last-number (type)
+  "Get the last number for today's date for TYPE (offer or invoice).
+   Returns the next number in sequence for the given type."
+  (let* ((today (format-time-string "%y%m%d"))
+         (dir (expand-file-name (format "~/sync/work/mwlabs/admin/%s/" 
+                                      (if (eq type 'offer) "proposals" "invoices"))))
+         (last-number 0))
+    (when (file-directory-p dir)
+      (dolist (file (directory-files dir nil "\\.org$"))
+        (when (string-match (concat today "-" (symbol-name type) "-\\([0-9]+\\)") file)
           (let ((num (string-to-number (match-string 1 file))))
             (when (> num last-number)
               (setq last-number num)))))
       (1+ last-number))
     1))
 
-;; Generate sequential invoice number
-(defun mwlabs/generate-invoice-number ()
-  "Generate sequential invoice number."
-  (format "%06d" (mwlabs/get-last-invoice-number)))
+(defun mwlabs/generate-number (type)
+  "Generate sequential number with date prefix for TYPE (offer or invoice).
+   Format: YYMMDD-XXX (e.g., 240315-001)"
+  (format "%s-%03d" (format-time-string "%y%m%d") (mwlabs/get-last-number type)))
 
-;; Prompted offer filename with auto-appended date
-(defun mwlabs/org-capture-offer-path ()
-  "Prompt for offer name, append 'offer' and current date, return full path."
-  (let* ((name (read-string "Offer name (e.g. ugani-QC-pilot): "))
-         (filename (concat name "-offer-" (format-time-string "%Y-%m-%d") ".org")))
-    (expand-file-name filename "~/sync/work/mwlabs/admin/proposals/")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Capture Templates
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Prompted invoice filename with auto-appended date
-(defun mwlabs/org-capture-invoice-path ()
-  "Prompt for invoice name, append 'invoice' and current date, return full path."
-  (let* ((name (read-string "Invoice name (e.g. standard-ahz): "))
-         (filename (concat name "-invoice-" (format-time-string "%Y-%m-%d") ".org")))
-    (expand-file-name filename "~/sync/work/mwlabs/admin/invoices/")))
-
-;; Capture templates
 (setq org-capture-templates
       '(("o" "Offer Template"
          plain
-         (file+function mwlabs/org-capture-offer-path)
-         "#+TITLE: %^{Title}
+         (file (lambda () (format "~/sync/work/mwlabs/admin/proposals/%s-offer-%s.org"
+                                 (read-string "Title (e.g., Project X): ")
+                                 (mwlabs/format-date-iso (current-time)))))
+         "#+TITLE: %1
 #+AUTHOR: MWLabs
 #+OPTIONS: toc:nil num:nil timestamp:nil author:nil date:nil
-#+EXPORT_FILE_NAME: ../%t
-#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"~/.emacs.d/invoice.css\" />
+#+EXPORT_FILE_NAME: %(mwlabs/get-export-filename 'offer)
+#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"file:///home/gomar/.emacs.d/invoice.css\" />
 
 * MWLabs
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: grid-item-left
   :END:
+  - Thibault Van den Bossche
   - Nieuwstraat 22, 3018 Wijgmaal, Belgium
-  - Website: [[http://mwlabs.nl][mwlabs.nl]], info@mwlabs.nl
-  - Phone: +32 492 42 65 35
-  - VAT: BE 0722.784.513
+  - info@mwlabs.nl – [[http://mwlabs.nl][mwlabs.nl]]
+  - BE0722784513 – +32 492 42 65 35
 
 * Client Information:
   :PROPERTIES:
@@ -73,18 +108,19 @@
   - %^{Company Address}
   - VAT: %^{Company VAT}
 
-* Offer Information:
+* Document Details:
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: grid-item-right
   :END:
-  - **Offer Number**: O-%(format-time-string \"%y%m%d\")
-  - **Date**: %(format-time-string \"%Y-%m-%d\")
-  - **Valid Until**: %^{Valid Until|%Y-%m-%d}
+  - **Project Reference**: %^{Project Reference|}
+  - **Offer Number**: %(mwlabs/generate-number 'offer)
+  - **Date**: %(mwlabs/format-date-readable (current-time))
+  - **Validity**: until %^{Valid Until|%(mwlabs/get-default-validity-date)}
 
-* Project Description:
+* Project Summary
 %^{Project Description}
 
-* Service Details:
+* Service Details
 |----------+----------------------------------+-------------+-------|
 | Quantity | Description                      | Rate        | Total |
 |----------+----------------------------------+-------------+-------|
@@ -96,33 +132,45 @@
 |          | **Total incl. VAT**              |             | €242  |
 |----------+----------------------------------+-------------+-------|
 
-* Terms and Conditions:
-  - This offer is valid for 30 days from the date of issue
-  - Payment terms: 30 days from invoice date
-  - All prices are in EUR and exclude VAT unless stated otherwise
+* Terms & Conditions
+- MWLabs acts as technical consultant only (not project lead)
+- All prices are exclusive of VAT
+- Travel and accommodation abroad are invoiced separately
+- This proposal can be included in R&D budgets or subsidy applications
 
-* Contact Information:
-  - **Contact Person**: Thibault Van den Bossche
-  - **Email**: info@mwlabs.nl
-  - **Phone**: +32 492 42 65 35")
+* Payment Information
+  - **Account holder**: Thibault Van den Bossche
+  - **IBAN**: BE09 7340 3298 4857
+
+* Signature
+
+Please confirm acceptance by returning this signed offer by email.
+
+|                    | For Client              |
+|--------------------+-------------------------|
+| Name:              |                         |
+| Signature:         |                         |
+| Date:              |                         |")
 
         ("i" "Invoice Template"
          plain
-         (file+function mwlabs/org-capture-invoice-path)
-         "#+TITLE: %^{Title}
+         (file (lambda () (format "~/sync/work/mwlabs/admin/invoices/%s-invoice-%s.org"
+                                 (read-string "Title (e.g., Project X): ")
+                                 (mwlabs/format-date-iso (current-time)))))
+         "#+TITLE: %1
 #+AUTHOR: MWLabs
 #+OPTIONS: toc:nil num:nil timestamp:nil author:nil date:nil
-#+EXPORT_FILE_NAME: ../%t
-#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"~/.emacs.d/invoice.css\" />
+#+EXPORT_FILE_NAME: %(mwlabs/get-export-filename 'invoice)
+#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"file:///home/gomar/.emacs.d/invoice.css\" />
 
 * MWLabs
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: grid-item-left
   :END:
+  - Thibault Van den Bossche
   - Nieuwstraat 22, 3018 Wijgmaal, Belgium
-  - Website: [[http://mwlabs.nl][mwlabs.nl]], info@mwlabs.nl
-  - Phone: +32 492 42 65 35
-  - VAT: BE 0722.784.513
+  - info@mwlabs.nl – [[http://mwlabs.nl][mwlabs.nl]]
+  - BE0722784513 – +32 492 42 65 35
 
 * Bill to:
   :PROPERTIES:
@@ -132,19 +180,19 @@
   - %^{Company Address}
   - VAT: %^{Company VAT}
 
-* Invoice Information:
+* Document Details:
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: grid-item-right
   :END:
-  - **Invoice Number**: M-%(mwlabs/generate-invoice-number)
-  - **Date**: %(format-time-string \"%Y-%m-%d\")
+  - **Project Reference**: %^{Project Reference|}
+  - **Invoice Number**: %(mwlabs/generate-number 'invoice)
+  - **Date**: %(mwlabs/format-date-readable (current-time))
 
-* Service notes:
-%^{Service Notes}
+* Service Details
 |----------+----------------------------------+-------------+-------|
 | Quantity | Description                      | Rate        | Total |
 |----------+----------------------------------+-------------+-------|
-|       10 | Letters unoptimized short notice | €20 (+€35+) | €200  |
+|       10 | Example service                  | €20         | €200  |
 |----------+----------------------------------+-------------+-------|
 |          | **excl. VAT**                    |             | €200  |
 |          | **21% VAT**                      |             | €42   |
@@ -152,12 +200,14 @@
 |          | **Total incl. VAT**              |             | €242  |
 |----------+----------------------------------+-------------+-------|
 
-* Payment Information:
-  - **Account Holder**: Thibault Van den Bossche
-  - **IBAN**: BE09 7340 3298 4857"
-         :immediate-finish t
-         :prepend t
-         :empty-lines 1)
+* Terms & Conditions
+- All prices are exclusive of VAT
+- Payment terms: 30 days from invoice date
+- Travel and accommodation are invoiced separately
+
+* Payment Information
+  - **Account holder**: Thibault Van den Bossche
+  - **IBAN**: BE09 7340 3298 4857")
 
         ("n" "Quick Note"
          entry
@@ -165,7 +215,11 @@
          "* %^{Title}\n%U\n\n%?"
          :empty-lines 1)))
 
-;; Global capture keybinding
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Keybindings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Set global capture keybinding
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (provide 'org-capture-templates)

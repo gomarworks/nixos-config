@@ -15,6 +15,7 @@
       olivetti
       visual-fill-column
       all-the-icons
+      vertico
     ];
   };
 

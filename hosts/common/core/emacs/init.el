@@ -28,6 +28,10 @@
 ;; Enable Evil mode for Vim-like keybindings
 (evil-mode 1)
 
+;; Vertico: Minimal minibuffer UI
+(require 'vertico)
+(vertico-mode)
+
 ;; Enable global auto-revert mode for automatic file updates
 (global-auto-revert-mode 1)
 (setq auto-revert-interval 1)                     ; Check for file changes every second
