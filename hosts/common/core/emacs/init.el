@@ -111,6 +111,12 @@
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 
+;; Load MWLabs capture templates
+(require 'mwlabs-init)
+
+;; Set up org-capture keybinding
+(global-set-key (kbd "C-c c") 'org-capture)
+
 (message "Init.el successfully loaded.")
 (provide 'init)
 ;;; init.el ends here

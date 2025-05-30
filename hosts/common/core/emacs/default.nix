@@ -27,16 +27,16 @@
     ".emacs.d/keybindings.el".source = ./keybindings.el;
     ".emacs.d/invoice.css".source = ./invoice.css;
     
-    # MWL-Admin system files
-    ".emacs.d/mwl-admin/init.el".source = ./mwl-admin/init.el;
-    ".emacs.d/mwl-admin/pricing.el".source = ./mwl-admin/pricing.el;
-    ".emacs.d/mwl-admin/export.el".source = ./mwl-admin/export.el;
-    ".emacs.d/mwl-admin/invoice.css".source = ./mwl-admin/invoice.css;
+    # MWLabs system files
+    ".emacs.d/mwlabs/init.el".source = ./mwl-admin/init.el;
+    ".emacs.d/mwlabs/pricing.el".source = ./mwl-admin/pricing.el;
+    ".emacs.d/mwlabs/export.el".source = ./mwl-admin/export.el;
+    ".emacs.d/mwlabs/invoice.css".source = ./mwl-admin/invoice.css;
     
-    # MWL-Admin capture templates
-    ".emacs.d/mwl-admin/capture/init.el".source = ./mwl-admin/capture/init.el;
-    ".emacs.d/mwl-admin/capture/3dprint.el".source = ./mwl-admin/capture/3dprint.el;
-    ".emacs.d/mwl-admin/capture/consulting.el".source = ./mwl-admin/capture/consulting.el;
-    ".emacs.d/mwl-admin/capture/invoice.el".source = ./mwl-admin/capture/invoice.el;
+    # MWLabs capture templates
+    ".emacs.d/mwlabs/capture/init.el".source = ./mwl-admin/capture/init.el;
+    ".emacs.d/mwlabs/capture/3dprint.el".source = ./mwl-admin/capture/3dprint.el;
+    ".emacs.d/mwlabs/capture/consulting.el".source = ./mwl-admin/capture/consulting.el;
+    ".emacs.d/mwlabs/capture/invoice.el".source = ./mwl-admin/capture/invoice.el;
   };
 }

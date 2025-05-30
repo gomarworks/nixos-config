@@ -1,17 +1,15 @@
-;;; mwlabs/export.el --- HTML export functionality for MWLabs -*- lexical-binding: t; -*-
+;;; mwlabs/export.el --- Export functionality for MWLabs -*- lexical-binding: t; -*-
 
+(require 'org)
 (require 'ox-html)
 
 (defun mwlabs-export-to-html ()
-  "Export current buffer to HTML with custom styling."
+  "Export the current buffer to HTML with custom styling."
   (interactive)
   (let ((org-html-head-include-default-style nil)
-        (org-html-htmlize-output-type 'css)
-        (org-html-validation-link nil)
-        (org-html-head
-         (concat "<link rel=\"stylesheet\" type=\"text/css\" href=\""
-                 (expand-file-name "invoice.css" (file-name-directory load-file-name))
-                 "\" />")))
+        (org-html-head-extra
+         (format "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\" />"
+                 (expand-file-name "~/.emacs.d/invoice.css"))))
     (org-html-export-to-html)))
 
 (provide 'mwlabs-export) 

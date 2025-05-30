@@ -1,79 +1,62 @@
-/* MWLabs Invoice/Offer Styling */
-
+/* General body styling */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  color: #333 !important;
 }
 
+/* Title styling */
 h1 {
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
+  text-align: center !important;
+  margin-bottom: 20px !important;
 }
 
-h2 {
-    color: #34495e;
-    margin-top: 30px;
+/* Left column (MWLabs) */
+.grid-item-left {
+  width: 48% !important;
+  float: left !important;
+  display: inline-block !important;
+  vertical-align: top !important;
+  margin-right: 2% !important;
 }
 
-/* Grid layout for company and client info */
-.grid-item-left, .grid-item-right {
-    display: inline-block;
-    vertical-align: top;
-    width: 45%;
-    margin: 10px;
+/* Right column (Bill to, Invoice Information) */
+.grid-item-right {
+  width: 48% !important;
+  float: right !important;
+  display: inline-block !important;
+  vertical-align: top !important;
+  margin-left: 2% !important;
 }
 
-/* Tables */
+/* Ensure that the Services and subsequent sections go back to full width */
+.outline-2:nth-of-type(4), .outline-2:nth-of-type(5), .outline-2:nth-of-type(6) {
+  width: 100% !important;
+  display: block !important;
+  clear: both !important;
+}
+
+/* Table styling - Full width */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-bottom: 20px !important;
 }
 
 th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd !important;
+  padding: 8px !important;
+  text-align: right !important;
 }
 
 th {
-    background-color: #f8f9fa;
-    font-weight: bold;
+  background-color: #f2f2f2 !important;
+  text-align: left !important;
 }
 
-/* Signature table */
-table:last-of-type {
-    width: 50%;
-    margin-top: 40px;
+/* Hide metadata (postamble) */
+#postamble {
+  display: none !important;
 }
 
-/* Terms and conditions */
-ul {
-    padding-left: 20px;
-}
-
-li {
-    margin: 5px 0;
-}
-
-/* Payment information */
-strong {
-    color: #2c3e50;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-    .grid-item-left, .grid-item-right {
-        width: 100%;
-        display: block;
-    }
-    
-    table {
-        font-size: 14px;
-    }
-} 
