@@ -50,11 +50,13 @@
 ;; Load Org-present configuration for presentations
 (load-file "~/.emacs.d/org-present.el")
 
-;; Load Org-capture-template configuration for quick note taking
-(load-file "~/.emacs.d/org-capture-templates.el")
-
 ;; Load MWLabs invoice and offer generation system
-(load-file "~/nixos-config/hosts/common/core/emacs/mwlabs/init.el")
+(let ((mwlabs-init (expand-file-name "~/.emacs.d/mwlabs/init.el")))
+  (if (file-exists-p mwlabs-init)
+      (progn
+        (message "Loading MWLabs system from: %s" mwlabs-init)
+        (load-file mwlabs-init))
+    (message "Warning: MWLabs init file not found at: %s" mwlabs-init)))
 
 ;; Doom Modeline Configuration
 (with-eval-after-load 'doom-modeline

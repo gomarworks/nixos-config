@@ -1,4 +1,4 @@
-;;; mwlabs/capture.el --- Capture templates for MWLabs -*- lexical-binding: t; -*-
+;;; mwlabs/capture/3dprint.el --- 3D printing capture templates -*- lexical-binding: t; -*-
 
 (require 'org)
 (require 'org-capture)
@@ -10,21 +10,12 @@
         (sanitized-title (replace-regexp-in-string "[^a-zA-Z0-9-]" "-" title)))
     (format "~/sync/work/mwlabs/admin/offers/%s-%s.org" date sanitized-title)))
 
-(defun mwlabs-capture-new-offer ()
-  "Start a new offer capture."
-  (interactive)
-  (let* ((title (read-string "Project title: "))
-         (filename (mwlabs-get-offer-filename title))
-         (print-time (read-number "Print time (minutes): "))
-         (material-weight (read-number "Material weight (grams): "))
-         (material-type (completing-read "Material type: " '("PLA" "ABS" "PETG" "TPU")))
-         (object-name (read-string "Print object name: "))
-         (quantity (read-number "Quantity: " 1))
-         (subtotal (mwlabs-calculate-subtotal material-weight (intern material-type) print-time))
-         (vat (mwlabs-calculate-vat subtotal))
-         (total (mwlabs-calculate-total subtotal)))
-    (org-capture-string
-     (format "#+TITLE: %s
+;; Add our template to org-capture-templates
+(add-to-list 'org-capture-templates
+             '("p" "3D Print Offer"
+               plain
+               (file (lambda () (mwlabs-get-offer-filename (read-string "Project title: "))))
+               "#+TITLE: %1
 #+AUTHOR: MWLabs
 #+OPTIONS: toc:nil num:nil timestamp:nil author:nil date:nil
 
@@ -55,17 +46,17 @@
   - **Validity**: until %(format-time-string \"%%d/%%m/%%Y\" (time-add (current-time) (days-to-time 30)))
 
 * Print Specifications
-- **Object Name**: %s
-- **Material**: %s
-- **Print Time**: %d minutes
-- **Material Weight**: %d grams
-- **Quantity**: %d
+- **Object Name**: %^{Object Name}
+- **Material**: %^{Material Type|PLA|ABS|PETG|TPU}
+- **Print Time**: %^{Print Time (minutes)} minutes
+- **Material Weight**: %^{Material Weight (grams)} grams
+- **Quantity**: %^{Quantity|1}
 
 * Service Details
 |----------+----------------------------------+-------------+-------|
 | Quantity | Description                      | Rate        | Total |
 |----------+----------------------------------+-------------+-------|
-| %d | %s (%s, %d min) | €%.2f | €%.2f |
+| %^{Quantity|1} | %^{Object Name} (%^{Material Type|PLA|ABS|PETG|TPU}, %^{Print Time (minutes)} min) | €%.2f | €%.2f |
 |----------+----------------------------------+-------------+-------|
 |          | **Subtotal**                     |             | €%.2f |
 |          | **21%% VAT**                     |             | €%.2f |
@@ -96,12 +87,6 @@ Please confirm acceptance by returning this signed offer by email.
 |--------------------+-------------------------|
 | Name:              |                         |
 | Signature:         |                         |
-| Date:              |                         |"
-             title
-             object-name material-type print-time material-weight quantity
-             quantity object-name material-type print-time
-             (/ print-time 60.0) (* (/ print-time 60.0) mwlabs-time-rate)
-             subtotal vat total)
-     filename)))
+| Date:              |                         |"))
 
-(provide 'mwlabs-capture) 
+(provide 'mwlabs-capture-3dprint) 

@@ -25,7 +25,18 @@
     ".emacs.d/org-present.el".source = ./org-present.el;
     ".emacs.d/org-mode.el".source = ./org-mode.el;
     ".emacs.d/keybindings.el".source = ./keybindings.el;
-    ".emacs.d/org-capture-templates.el".source = ./org-capture-templates.el;
     ".emacs.d/invoice.css".source = ./invoice.css;
+    
+    # MWL-Admin system files
+    ".emacs.d/mwl-admin/init.el".source = ./mwl-admin/init.el;
+    ".emacs.d/mwl-admin/pricing.el".source = ./mwl-admin/pricing.el;
+    ".emacs.d/mwl-admin/export.el".source = ./mwl-admin/export.el;
+    ".emacs.d/mwl-admin/invoice.css".source = ./mwl-admin/invoice.css;
+    
+    # MWL-Admin capture templates
+    ".emacs.d/mwl-admin/capture/init.el".source = ./mwl-admin/capture/init.el;
+    ".emacs.d/mwl-admin/capture/3dprint.el".source = ./mwl-admin/capture/3dprint.el;
+    ".emacs.d/mwl-admin/capture/consulting.el".source = ./mwl-admin/capture/consulting.el;
+    ".emacs.d/mwl-admin/capture/invoice.el".source = ./mwl-admin/capture/invoice.el;
   };
 }
