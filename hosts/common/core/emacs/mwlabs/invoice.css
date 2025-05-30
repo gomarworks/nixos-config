@@ -1,0 +1,79 @@
+/* MWLabs Invoice/Offer Styling */
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #34495e;
+    margin-top: 30px;
+}
+
+/* Grid layout for company and client info */
+.grid-item-left, .grid-item-right {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    margin: 10px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+/* Signature table */
+table:last-of-type {
+    width: 50%;
+    margin-top: 40px;
+}
+
+/* Terms and conditions */
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+/* Payment information */
+strong {
+    color: #2c3e50;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .grid-item-left, .grid-item-right {
+        width: 100%;
+        display: block;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+} 

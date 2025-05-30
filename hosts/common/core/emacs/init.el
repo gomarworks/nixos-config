@@ -53,6 +53,9 @@
 ;; Load Org-capture-template configuration for quick note taking
 (load-file "~/.emacs.d/org-capture-templates.el")
 
+;; Load MWLabs invoice and offer generation system
+(load-file "~/nixos-config/hosts/common/core/emacs/mwlabs/init.el")
+
 ;; Doom Modeline Configuration
 (with-eval-after-load 'doom-modeline
   (doom-modeline-mode 1)
